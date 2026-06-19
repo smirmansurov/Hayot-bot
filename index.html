@@ -5,114 +5,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Hayot Ventures — Apply</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#0A1413; --bg2:#0E1C1A; --card:#13211F; --card2:#172927;
-    --line:rgba(95,168,164,.16); --line2:rgba(95,168,164,.30);
-    --teal:#2E6E6A; --teal-light:#5FA8A4; --teal-deep:#1F5B57;
-    --coral:#E8835A; --coral-soft:#F0997B;
-    --txt:#EAF3F1; --muted:#8AA39F; --dim:#5F756F;
+    --teal:#0F7A7A; --teal-accent:#2F9E9B; --teal-light:#D7E8E8;
+    --orange:#F5A05A; --ink:#101820; --bg:#F5F6F7; --card:#FFFFFF;
+    --muted:#5E6E6E; --dim:#93A3A3; --line:#E4EBEB;
+    --serif:"Playfair Display",Georgia,serif;
+    --sans:"Manrope",-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
     --radius:18px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
   html,body{min-height:100%;}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,Roboto,sans-serif;
-    color:var(--txt);
-    background:
-      radial-gradient(900px 480px at 80% -8%, rgba(232,131,90,.16), transparent 60%),
-      radial-gradient(1100px 600px at 12% 0%, rgba(95,168,164,.20), transparent 55%),
-      linear-gradient(180deg,var(--bg2),var(--bg) 40%);
-    background-attachment:fixed;
-    min-height:100vh; -webkit-font-smoothing:antialiased; padding:0 0 40px;
+    font-family:var(--sans); color:var(--ink); background:var(--bg);
+    min-height:100vh; -webkit-font-smoothing:antialiased; padding:0 0 46px; position:relative; overflow-x:hidden;
   }
-  .wrap{max-width:520px;margin:0 auto;padding:0 18px;}
+  /* фоновые плавающие гексагоны (венчурный мотив роста/сети) */
+  .bg-hex{position:fixed;z-index:0;opacity:.05;pointer-events:none;animation:float 14s ease-in-out infinite;}
+  .bg-hex.a{top:8%;right:-30px;width:160px;color:var(--teal);animation-delay:0s;}
+  .bg-hex.b{top:46%;left:-40px;width:190px;color:var(--orange);opacity:.045;animation-delay:-5s;}
+  .bg-hex.c{bottom:4%;right:-20px;width:130px;color:var(--teal-accent);animation-delay:-9s;}
+  @keyframes float{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-22px) rotate(8deg)}}
+  .wrap{max-width:520px;margin:0 auto;padding:0 18px;position:relative;z-index:1;}
 
-  header{max-width:520px;margin:0 auto;padding:16px 18px 6px;display:flex;align-items:center;gap:11px;}
-  .logo{width:40px;height:40px;flex:none;filter:drop-shadow(0 4px 12px rgba(95,168,164,.35));}
-  .brand b{font-size:17px;font-weight:700;letter-spacing:-.2px;display:block;}
-  .brand span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;}
+  header{max-width:520px;margin:0 auto;padding:18px 18px 4px;display:flex;align-items:center;gap:11px;position:relative;z-index:1;}
+  .logo{height:26px;width:auto;display:block;}
   .langs{margin-left:auto;display:flex;gap:5px;}
-  .lang{font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);
-    border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer;transition:.2s;}
-  .lang.active{color:#0A1413;background:var(--teal-light);border-color:var(--teal-light);}
+  .lang{font-size:11px;font-weight:700;color:var(--muted);background:#fff;border:1px solid var(--line);
+    border-radius:999px;padding:6px 11px;cursor:pointer;transition:.22s;}
+  .lang.active{color:#fff;background:var(--teal);border-color:var(--teal);box-shadow:0 4px 12px rgba(15,122,122,.28);}
 
-  /* hero / intro */
-  .pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--teal-light);
-    background:rgba(95,168,164,.10);border:1px solid var(--line2);border-radius:999px;padding:7px 14px;margin:6px 0 18px;}
-  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(232,131,90,.2);animation:pulse 1.8s infinite;}
-  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-  .hero h1{font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-.8px;margin-bottom:14px;}
-  .hero h1 .accent{background:linear-gradient(120deg,var(--teal-light),var(--coral-soft));-webkit-background-clip:text;background-clip:text;color:transparent;}
-  .hero p{color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:22px;}
+  .progress{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:16px 0 18px;}
+  .hex{width:13px;height:15px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    background:var(--teal-light);transition:.35s cubic-bezier(.3,1.4,.5,1);}
+  .hex.done{background:var(--teal-accent);}
+  .hex.current{background:var(--orange);transform:scale(1.25);animation:beat 1.3s ease-in-out infinite;}
+  @keyframes beat{0%,100%{transform:scale(1.25)}50%{transform:scale(1.55)}}
+
+  /* hero */
+  .hero{animation:fadeUp .5s ease both;}
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:700;color:var(--teal);
+    background:var(--teal-light);border-radius:999px;padding:7px 14px;margin:4px 0 18px;letter-spacing:.2px;}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 0 rgba(245,160,90,.5);animation:ring 1.8s infinite;}
+  @keyframes ring{0%{box-shadow:0 0 0 0 rgba(245,160,90,.5)}70%{box-shadow:0 0 0 9px rgba(245,160,90,0)}100%{box-shadow:0 0 0 0 rgba(245,160,90,0)}}
+  .hero h1{font-family:var(--serif);font-size:33px;line-height:1.14;font-weight:800;letter-spacing:-.3px;color:var(--ink);margin-bottom:14px;}
+  .hero h1 .em{font-style:italic;color:var(--teal);}
+  .hero p{color:var(--muted);font-size:15px;line-height:1.62;margin-bottom:20px;}
+
+  /* венчурный growth-график */
+  .chart{background:linear-gradient(180deg,#fff,#FBFDFD);border:1px solid var(--line);border-radius:16px;
+    padding:16px 16px 10px;margin-bottom:22px;box-shadow:0 10px 30px rgba(15,122,122,.06);}
+  .chart .ct{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px;}
+  .chart .ct b{font-size:13px;font-weight:700;color:var(--ink);}
+  .chart .ct span{font-size:12px;font-weight:700;color:var(--teal);}
+  .grow-line{stroke:var(--teal);stroke-width:3;fill:none;stroke-linecap:round;
+    stroke-dasharray:320;stroke-dashoffset:320;animation:draw 1.8s .3s ease forwards;}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  .grow-dot{fill:var(--orange);opacity:0;animation:dotIn .4s 1.9s ease forwards;}
+  @keyframes dotIn{to{opacity:1}}
+  .grow-bar{fill:var(--teal-light);transform-origin:bottom;transform:scaleY(0);animation:barUp .6s ease forwards;}
+  @keyframes barUp{to{transform:scaleY(1)}}
+
   .stats{display:flex;gap:10px;margin-bottom:24px;}
-  .stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center;}
-  .stat b{display:block;font-size:17px;font-weight:800;color:var(--teal-light);letter-spacing:-.3px;}
-  .stat span{font-size:10.5px;color:var(--muted);line-height:1.3;display:block;margin-top:3px;}
-
-  /* progress */
-  .progress{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:14px 0 18px;}
-  .hex{width:13px;height:15px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:rgba(255,255,255,.08);transition:.3s;}
-  .hex.done{background:var(--teal-light);}
-  .hex.current{background:var(--coral);transform:scale(1.2);}
+  .stat{flex:1;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;animation:fadeUp .5s both;}
+  .stat:nth-child(1){animation-delay:.1s}.stat:nth-child(2){animation-delay:.18s}.stat:nth-child(3){animation-delay:.26s}
+  .stat b{display:block;font-family:var(--serif);font-size:19px;font-weight:800;color:var(--teal);letter-spacing:-.3px;}
+  .stat span{font-size:10.5px;color:var(--muted);line-height:1.3;display:block;margin-top:4px;font-weight:600;}
 
   .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
-    padding:22px 20px;animation:rise .35s ease;backdrop-filter:blur(8px);}
-  @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
-  .step-num{font-size:11px;font-weight:700;color:var(--teal-light);letter-spacing:1.5px;text-transform:uppercase;}
-  .q{font-size:21px;font-weight:800;margin:7px 0 4px;letter-spacing:-.4px;line-height:1.22;}
-  .hint{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.45;}
+    padding:23px 20px;box-shadow:0 10px 30px rgba(16,24,32,.05);animation:fadeUp .4s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  .step-num{font-size:11px;font-weight:800;color:var(--teal-accent);letter-spacing:1.5px;text-transform:uppercase;}
+  .q{font-family:var(--serif);font-size:24px;font-weight:700;margin:8px 0 4px;letter-spacing:-.2px;line-height:1.24;color:var(--ink);}
+  .hint{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5;}
 
-  input,textarea{width:100%;font-size:16px;font-family:inherit;color:var(--txt);background:var(--card2);
-    border:1.5px solid var(--line);border-radius:13px;padding:14px;outline:none;transition:.2s;}
+  input,textarea{width:100%;font-size:16px;font-family:var(--sans);color:var(--ink);background:#fff;
+    border:1.5px solid var(--line);border-radius:13px;padding:14px;outline:none;transition:.22s;}
   input::placeholder,textarea::placeholder{color:var(--dim);}
-  input:focus,textarea:focus{border-color:var(--teal-light);box-shadow:0 0 0 4px rgba(95,168,164,.12);}
+  input:focus,textarea:focus{border-color:var(--teal-accent);box-shadow:0 0 0 4px rgba(47,158,155,.14);}
   textarea{min-height:108px;resize:vertical;}
 
   .chips{display:flex;flex-direction:column;gap:9px;}
-  .chip{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:var(--card2);
-    border-radius:13px;padding:13px 14px;font-size:15px;font-weight:600;color:var(--txt);cursor:pointer;transition:.18s;}
-  .chip .dot{width:17px;height:19px;flex:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:rgba(255,255,255,.12);transition:.18s;}
-  .chip.sel{border-color:var(--teal-light);background:rgba(95,168,164,.12);}
-  .chip.sel .dot{background:var(--coral);}
+  .chip{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:#fff;
+    border-radius:13px;padding:13px 14px;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;
+    transition:.2s;animation:fadeUp .35s both;}
+  .chip:active{transform:scale(.985);}
+  .chip .dot{width:16px;height:18px;flex:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+    background:var(--teal-light);transition:.2s;}
+  .chip.sel{border-color:var(--teal);background:#F0F8F8;box-shadow:0 6px 18px rgba(15,122,122,.12);}
+  .chip.sel .dot{background:var(--orange);transform:scale(1.15) rotate(15deg);}
 
-  .err{color:var(--coral-soft);font-size:13px;font-weight:600;margin-top:10px;min-height:16px;}
+  .err{color:#C8552B;font-size:13px;font-weight:600;margin-top:10px;min-height:16px;}
 
   .nav{display:flex;gap:10px;margin-top:18px;}
-  .btn{flex:1;border:none;border-radius:13px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:.2s;}
-  .btn-primary{background:linear-gradient(120deg,var(--teal-deep),var(--teal));color:#fff;box-shadow:0 8px 24px rgba(31,91,87,.4);}
-  .btn-primary:active{transform:scale(.98);}
-  .btn-coral{background:linear-gradient(120deg,var(--coral),var(--coral-soft));color:#3A1206;box-shadow:0 8px 24px rgba(232,131,90,.35);}
-  .btn-ghost{flex:none;width:54px;background:var(--card2);color:var(--teal-light);border:1.5px solid var(--line);}
+  .btn{flex:1;border:none;border-radius:13px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;
+    font-family:var(--sans);transition:.2s;position:relative;overflow:hidden;}
+  .btn:active{transform:scale(.98);}
+  .btn-primary{background:var(--teal);color:#fff;box-shadow:0 8px 22px rgba(15,122,122,.32);}
+  .btn-primary::after{content:"";position:absolute;top:0;left:-120%;width:60%;height:100%;
+    background:linear-gradient(120deg,transparent,rgba(255,255,255,.35),transparent);animation:shine 3.2s infinite;}
+  @keyframes shine{0%{left:-120%}45%,100%{left:160%}}
+  .btn-coral{background:var(--orange);color:#3A1D08;box-shadow:0 8px 22px rgba(245,160,90,.36);}
+  .btn-ghost{flex:none;width:54px;background:#fff;color:var(--teal);border:1.5px solid var(--line);}
   .btn-block{width:100%;}
 
-  .rev-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);}
+  .rev-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);animation:fadeUp .3s both;}
   .rev-row:last-child{border-bottom:none;}
   .rev-row .k{color:var(--muted);font-size:13px;font-weight:600;flex:none;}
-  .rev-row .v{font-size:14px;font-weight:600;text-align:right;word-break:break-word;}
+  .rev-row .v{font-size:14px;font-weight:700;text-align:right;word-break:break-word;}
 
   .done-screen{text-align:center;padding:30px 22px;}
-  .done-screen .big-hex{width:80px;height:80px;margin:0 auto 18px;filter:drop-shadow(0 8px 20px rgba(95,168,164,.4));animation:pop .5s ease;}
-  @keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
-  .done-screen h2{font-size:25px;font-weight:800;margin-bottom:10px;letter-spacing:-.4px;}
+  .done-screen .seal{width:96px;height:96px;margin:0 auto 18px;position:relative;}
+  .done-screen .seal svg{width:100%;height:100%;}
+  .seal .ring{stroke:var(--teal-light);stroke-width:4;fill:none;}
+  .seal .prog{stroke:var(--teal);stroke-width:4;fill:none;stroke-linecap:round;stroke-dasharray:283;stroke-dashoffset:283;animation:draw2 .9s .2s ease forwards;}
+  @keyframes draw2{to{stroke-dashoffset:0}}
+  .seal .tick{stroke:var(--orange);stroke-width:5;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:48;stroke-dashoffset:48;animation:draw3 .4s 1s ease forwards;}
+  @keyframes draw3{to{stroke-dashoffset:0}}
+  .done-screen h2{font-family:var(--serif);font-size:26px;font-weight:800;margin-bottom:10px;letter-spacing:-.2px;}
   .done-screen p{color:var(--muted);font-size:15px;line-height:1.55;}
   .hidden{display:none;}
-  .footer{text-align:center;color:var(--dim);font-size:10.5px;margin-top:20px;letter-spacing:.4px;}
+  .footer{text-align:center;color:var(--dim);font-size:10.5px;margin-top:20px;letter-spacing:.4px;font-weight:600;}
 </style>
 </head>
 <body>
 
+<svg class="bg-hex a" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 93,27 93,73 50,97 7,73 7,27" fill="currentColor"/></svg>
+<svg class="bg-hex b" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 93,27 93,73 50,97 7,73 7,27" fill="currentColor"/></svg>
+<svg class="bg-hex c" viewBox="0 0 100 100" aria-hidden="true"><polygon points="50,3 93,27 93,73 50,97 7,73 7,27" fill="currentColor"/></svg>
+
 <header>
-  <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
-    <polygon points="50,8 70,20 70,44 50,56 30,44 30,20" fill="#1F5B57"/>
-    <polygon points="92,50 92,74 72,86 52,74 52,50 72,38" fill="#E8835A"/>
-    <polygon points="50,92 30,80 30,56 50,44 70,56 70,80" fill="#2E6E6A"/>
-    <polygon points="8,50 8,26 28,14 48,26 48,50 28,62" fill="#5FA8A4"/>
+  <!-- Настоящий логотип Hayot Ventures -->
+  <svg class="logo" viewBox="0 0 216 30" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Hayot Ventures">
+    <path d="M50.1082 13.4964H41.6888V6.05044H37.9458V24.4584H41.6888V16.903H50.1082V24.4584H53.9049V6.05044H50.1082V13.4964Z" fill="#101820"/>
+    <path d="M65.5899 11.1785C64.6638 10.7113 63.5405 10.4777 62.2196 10.4777C60.8988 10.4777 59.8535 10.7016 58.9177 11.1518C57.982 11.6019 57.2534 12.2273 56.7294 13.0327C56.2054 13.8381 55.9447 14.7823 55.9447 15.8626V16.1644H59.522V15.8626C59.522 15.0743 59.7243 14.5292 60.1264 14.2274C60.5285 13.9257 61.1718 13.7748 62.0515 13.7748C62.9312 13.7748 63.5551 13.9038 64.0327 14.1593C64.5103 14.4173 64.7492 15.011 64.7492 15.9454V16.4247L59.9899 17.1256C59.0372 17.2544 58.2281 17.4832 57.5677 17.8117C56.9072 18.1426 56.4126 18.5709 56.0812 19.1039C55.7498 19.6342 55.5864 20.2572 55.5864 20.9725C55.5864 22.199 56.0032 23.1333 56.839 23.7758C57.6725 24.4181 58.6959 24.7369 59.9071 24.7369C60.7868 24.7369 61.5301 24.6274 62.1368 24.406C62.7411 24.187 63.2554 23.9023 63.677 23.5543C64.0984 23.2063 64.4469 22.8585 64.7223 22.5105H64.832V24.462H68.3533V16.3298C68.3533 15.1034 68.1241 14.0547 67.666 13.1836C67.2079 12.3149 66.5158 11.6457 65.5874 11.1785H65.5899ZM64.2008 20.7804C63.8328 21.1843 63.3747 21.4593 62.824 21.6053C62.2733 21.7512 61.7323 21.8242 61.2011 21.8242C60.5211 21.8242 60.0216 21.7366 59.7024 21.5639C59.3806 21.3911 59.2199 21.1015 59.2199 20.6977C59.2199 20.3692 59.3344 20.1161 59.5635 19.9433C59.7925 19.7706 60.1556 19.6465 60.6503 19.5735L64.7492 18.9554V18.9967C64.7492 19.7851 64.5664 20.3788 64.1984 20.7828L64.2008 20.7804Z" fill="#101820"/>
+    <path d="M79.6568 10.7573L77.5391 16.6094L76.6034 19.2739H76.3548L75.2266 16.6094L72.8336 10.7573H68.6519L74.4735 23.9458L74.1542 24.6344C73.935 25.1284 73.6913 25.4399 73.4257 25.5689C73.16 25.6978 72.7507 25.7611 72.2023 25.7611H70.0554V28.866C70.3113 28.939 70.6549 29.0022 71.0863 29.0582C71.5176 29.1142 71.9441 29.141 72.3656 29.141C73.2648 29.141 74.0251 29.0387 74.649 28.8392C75.2728 28.6372 75.8138 28.2771 76.2719 27.7539C76.73 27.2308 77.1516 26.5227 77.5367 25.6248L83.8385 10.7597H79.6568V10.7573Z" fill="#101820"/>
+    <path d="M94.2023 11.3562C93.1837 10.7697 91.9506 10.4777 90.5007 10.4777C89.0507 10.4777 87.8005 10.7697 86.7455 11.3562C85.6902 11.9426 84.8885 12.7699 84.3378 13.843C83.7871 14.9137 83.5117 16.1644 83.5117 17.5927C83.5117 19.0211 83.7871 20.2986 84.3378 21.3716C84.8885 22.4423 85.6902 23.2721 86.7455 23.8585C87.8005 24.4449 89.0531 24.7369 90.5007 24.7369C91.9481 24.7369 93.1837 24.4449 94.2023 23.8585C95.2208 23.2721 96.0079 22.4447 96.5684 21.3716C97.1289 20.3011 97.4068 19.0405 97.4068 17.5927C97.4068 16.1449 97.1265 14.9137 96.5684 13.843C96.0079 12.7723 95.2208 11.9426 94.2023 11.3562ZM93.0472 20.5614C92.5598 21.1283 91.7117 21.413 90.503 21.413C89.2944 21.413 88.461 21.1283 87.959 20.5614C87.4546 19.9944 87.2036 19.004 87.2036 17.5952C87.2036 16.1862 87.4546 15.2008 87.959 14.6412C88.4634 14.0814 89.3115 13.8041 90.503 13.8041C91.6947 13.8041 92.5622 14.0839 93.0472 14.6412C93.532 15.2008 93.7758 16.1839 93.7758 17.5952C93.7758 19.0065 93.532 19.9944 93.0472 20.5614Z" fill="#101820"/>
+    <path d="M103.605 7.42733H100.662L99.916 10.7512H97.5791V13.8561H99.8356V19.9832C99.8356 21.5965 100.272 22.745 101.142 23.4312C102.012 24.1174 103.311 24.4605 105.036 24.4605C105.494 24.4605 105.952 24.4338 106.413 24.3778C106.871 24.3218 107.266 24.2585 107.597 24.1855V21.0807H106.028C105.055 21.0807 104.41 20.9979 104.088 20.8324C103.766 20.6669 103.605 20.2654 103.605 19.6231V13.8537H107.595V10.7488H103.605V7.42489V7.42733Z" fill="#101820"/>
+    <path d="M8.04656 0.000120163L14.9332 6.87664L12.6498 12.6314L6.88661 14.9114L0 8.0349L2.27116 2.28986L8.04656 0.000120163Z" fill="#02676C"/>
+    <path d="M22.9762 14.9139L29.8628 21.7905L27.5795 27.5453L21.8163 29.8253L14.9297 22.9487L17.2008 17.2037L22.9762 14.9139Z" fill="#02676C"/>
+    <path d="M14.9297 6.87652L21.8163 0L27.5795 2.28001L29.8628 8.03478L22.9762 14.9113L17.2227 12.6434L14.9297 6.87652Z" fill="#FF7733"/>
+    <path d="M0 21.7905L6.88661 14.9139L12.6498 17.1916L14.9332 22.9487L8.04656 29.8253L2.2931 27.5574L0 21.7905Z" fill="#02676C"/>
+    <path d="M117.088 24.6754L110.663 6.05044H114.638L119.588 21.2254H118.788L123.738 6.05044H127.738L121.288 24.6754H117.088Z" fill="#101820"/>
+    <path d="M134.22 24.9754C132.803 24.9754 131.562 24.6588 130.495 24.0254C129.445 23.3754 128.628 22.5171 128.045 21.4504C127.462 20.3671 127.17 19.1588 127.17 17.8254C127.17 16.4754 127.47 15.2671 128.07 14.2004C128.67 13.1338 129.478 12.2921 130.495 11.6754C131.528 11.0588 132.695 10.7504 133.995 10.7504C135.062 10.7504 136.003 10.9254 136.82 11.2754C137.653 11.6088 138.353 12.0838 138.92 12.7004C139.487 13.3171 139.92 14.0338 140.22 14.8504C140.52 15.6504 140.67 16.5088 140.67 17.4254C140.67 17.6921 140.653 17.9504 140.62 18.2004C140.603 18.4504 140.562 18.6671 140.495 18.8504H130.145V16.2254H138.495L136.845 17.4504C137.012 16.7171 136.987 16.0588 136.77 15.4754C136.57 14.8921 136.228 14.4338 135.745 14.1004C135.262 13.7671 134.678 13.6004 133.995 13.6004C133.312 13.6004 132.72 13.7671 132.22 14.1004C131.737 14.4338 131.362 14.9171 131.095 15.5504C130.845 16.1838 130.745 16.9504 130.795 17.8504C130.728 18.6671 130.828 19.3838 131.095 20.0004C131.378 20.6004 131.787 21.0671 132.32 21.4004C132.87 21.7338 133.52 21.9004 134.27 21.9004C134.987 21.9004 135.587 21.7588 136.07 21.4754C136.57 21.1754 136.97 20.7838 137.27 20.3004L140.095 21.6504C139.828 22.3004 139.403 22.8754 138.82 23.3754C138.253 23.8754 137.578 24.2671 136.795 24.5504C136.012 24.8338 135.153 24.9754 134.22 24.9754Z" fill="#101820"/>
+    <path d="M142.528 24.6754V11.0504H145.828V13.7504L145.603 13.2004C146.219 12.3838 146.428 11.7754 147.128 11.3754C147.844 10.9588 148.686 10.7504 149.653 10.7504C150.669 10.7504 151.561 10.9671 152.328 11.4004C153.111 11.8338 153.719 12.4421 154.153 13.2254C154.586 13.9921 154.803 14.8921 154.803 15.9254V24.6754H151.278V16.7004C151.278 16.1338 151.169 15.6504 150.953 15.2504C150.736 14.8338 150.428 14.5171 150.028 14.3004C149.644 14.0671 149.194 13.9504 148.678 13.9504C148.161 13.9504 147.703 14.0671 147.303 14.3004C146.903 14.5171 146.586 14.8338 146.353 15.2504C146.136 15.6504 146.028 16.1338 146.028 16.7004V24.6754H142.528Z" fill="#101820"/>
+    <path d="M163.32 24.8254C161.72 24.8254 160.478 24.3921 159.595 23.5254C158.728 22.6588 158.295 21.4421 158.295 19.8754V14.1254H155.97V11.0504H156.145C156.828 11.0504 157.353 10.8754 157.72 10.5254C158.103 10.1754 158.295 9.65878 158.295 8.97544V7.95044H161.795V11.0504H164.97V14.1254H161.795V19.6504C161.795 20.1171 161.878 20.5088 162.045 20.8254C162.212 21.1421 162.47 21.3754 162.82 21.5254C163.17 21.6754 163.603 21.7504 164.12 21.7504C164.237 21.7504 164.37 21.7421 164.52 21.7254C164.67 21.7088 164.828 21.6921 164.995 21.6754V24.6754C164.762 24.7088 164.487 24.7421 164.17 24.7754C163.87 24.8088 163.587 24.8254 163.32 24.8254Z" fill="#101820"/>
+    <path d="M171.72 24.9754C170.637 24.9754 169.703 24.7421 168.92 24.2754C168.153 23.7921 167.57 23.1338 167.17 22.3004C166.77 21.4504 166.57 20.4671 166.57 19.3504V11.0504H170.07V19.0504C170.07 19.6004 170.178 20.0838 170.395 20.5004C170.628 20.9004 170.945 21.2171 171.345 21.4504C171.745 21.6671 172.195 21.7754 172.695 21.7754C173.228 21.7754 173.687 21.6671 174.07 21.4504C174.47 21.2171 174.778 20.8921 174.995 20.4754C175.212 20.0588 175.32 19.5754 175.32 19.0254V11.0504H178.845V24.6754H175.545V21.9754L175.77 22.5254C175.453 23.3421 174.937 23.9588 174.22 24.3754C173.503 24.7754 172.67 24.9754 171.72 24.9754Z" fill="#101820"/>
+    <path d="M181.238 24.6754V11.0504H184.537V14.2004L184.287 13.7504C184.587 12.6504 185.079 11.9004 185.762 11.5004C186.446 11.1004 187.262 10.9004 188.212 10.9004H189.012V13.9754H187.837C186.921 13.9754 186.171 14.2588 185.587 14.8254C185.021 15.3921 184.738 16.1838 184.738 17.2004V24.6754H181.238Z" fill="#101820"/>
+    <path d="M196.735 24.9754C195.318 24.9754 194.076 24.6588 193.01 24.0254C191.96 23.3754 191.143 22.5171 190.56 21.4504C189.976 20.3671 189.685 19.1588 189.685 17.8254C189.685 16.4754 189.985 15.2671 190.585 14.2004C191.185 13.1338 191.993 12.2921 193.01 11.6754C194.043 11.0588 195.21 10.7504 196.51 10.7504C197.576 10.7504 198.518 10.9254 199.335 11.2754C200.168 11.6088 200.868 12.0838 201.435 12.7004C202.001 13.3171 202.435 14.0338 202.735 14.8504C203.035 15.6504 203.185 16.5088 203.185 17.4254C203.185 17.6921 203.168 17.9504 203.135 18.2004C203.118 18.4504 203.076 18.6671 203.01 18.8504H192.66V16.2254H201.01L199.36 17.4504C199.526 16.7171 199.501 16.0588 199.285 15.4754C199.085 14.8921 198.743 14.4338 198.26 14.1004C197.776 13.7671 197.193 13.6004 196.51 13.6004C195.826 13.6004 195.235 13.7671 194.735 14.1004C194.251 14.4338 193.876 14.9171 193.61 15.5504C193.36 16.1838 193.26 16.9504 193.31 17.8504C193.243 18.6671 193.343 19.3838 193.61 20.0004C193.893 20.6004 194.301 21.0671 194.835 21.4004C195.385 21.7338 196.035 21.9004 196.785 21.9004C197.501 21.9004 198.101 21.7588 198.585 21.4754C199.085 21.1754 199.485 20.7838 199.785 20.3004L202.61 21.6504C202.343 22.3004 201.918 22.8754 201.335 23.3754C200.768 23.8754 200.093 24.2671 199.31 24.5504C198.526 24.8338 197.668 24.9754 196.735 24.9754Z" fill="#101820"/>
+    <path d="M210.292 24.9754C208.826 24.9754 207.542 24.6254 206.442 23.9254C205.359 23.2254 204.617 22.2754 204.217 21.0754L206.817 19.8504C207.167 20.6004 207.651 21.1921 208.267 21.6254C208.884 22.0421 209.559 22.2504 210.292 22.2504C210.859 22.2504 211.301 22.1338 211.617 21.9004C211.934 21.6504 212.092 21.3171 212.092 20.9004C212.092 20.6671 212.034 20.4754 211.917 20.3254C211.801 20.1588 211.634 20.0171 211.417 19.9004C211.201 19.7838 210.942 19.6838 210.642 19.6004L208.367 18.9504C207.234 18.6338 206.367 18.1254 205.767 17.4254C205.184 16.7254 204.892 15.9004 204.892 14.9504C204.892 14.1171 205.101 13.3921 205.517 12.7754C205.951 12.1421 206.551 11.6504 207.317 11.3004C208.101 10.9338 208.984 10.7504 209.967 10.7504C211.284 10.7504 212.442 11.0671 213.442 11.7004C214.442 12.3171 215.142 13.1838 215.542 14.3004L212.917 15.5254C212.701 14.9421 212.326 14.4754 211.792 14.1254C211.259 13.7754 210.651 13.6004 209.967 13.6004C209.451 13.6004 209.042 13.7088 208.742 13.9254C208.442 14.1421 208.292 14.4421 208.292 14.8254C208.292 15.0421 208.351 15.2338 208.467 15.4004C208.584 15.5671 208.759 15.7088 208.992 15.8254C209.242 15.9421 209.526 16.0504 209.842 16.1504L212.017 16.8004C213.151 17.1338 214.017 17.6421 214.617 18.3254C215.217 18.9921 215.517 19.8088 215.517 20.7754C215.517 21.6088 215.292 22.3421 214.842 22.9754C214.409 23.5921 213.801 24.0838 213.017 24.4504C212.251 24.8004 211.342 24.9754 210.292 24.9754Z" fill="#101820"/>
   </svg>
-  <div class="brand">
-    <b>Hayot Ventures</b>
-    <span data-i="brand_sub">Венчурный фонд</span>
-  </div>
   <div class="langs">
     <div class="lang" data-lang="ru">RU</div>
     <div class="lang" data-lang="en">EN</div>
@@ -123,14 +168,13 @@
 <div class="wrap">
   <div class="progress hidden" id="progress"></div>
   <div id="screen"></div>
-  <div class="footer">⬡ Hayot Ventures · Central Asia</div>
+  <div class="footer">⬡ HAYOT VENTURES · CENTRAL ASIA</div>
 </div>
 
 <script>
 const tg = window.Telegram ? window.Telegram.WebApp : null;
-if (tg){ tg.ready(); tg.expand(); try{tg.setHeaderColor("#0A1413"); tg.setBackgroundColor("#0A1413");}catch(e){} }
+if (tg){ tg.ready(); tg.expand(); try{tg.setHeaderColor("#F5F6F7"); tg.setBackgroundColor("#F5F6F7");}catch(e){} }
 
-/* секторы и стадии — как на сайте hayot.vc */
 const SECTORS = {
   fintech:{ru:"Финтех",en:"Fintech",uz:"Fintech"},
   ai:{ru:"AI / ML",en:"AI / ML",uz:"AI / ML"},
@@ -149,14 +193,16 @@ const STAGES = {
   seed:{ru:"Seed",en:"Seed",uz:"Seed"}
 };
 const L = {
-  brand_sub:{ru:"Венчурный фонд",en:"Venture fund",uz:"Venchur fondi"},
-  pill:{ru:"Сейчас принимаем стартапы",en:"Now accepting startups",uz:"Hozir startaplar qabul qilinmoqda"},
-  hero1:{ru:"Инвестируем в будущее",en:"Investing in the future",uz:"Markaziy Osiyo"},
-  hero2:{ru:"Центральной Азии",en:"of Central Asia",uz:"kelajagiga sarmoya"},
-  heroP:{ru:"Hayot Ventures инвестирует в технологические стартапы ранней стадии. Заполните заявку — мы ответим в течение 5 рабочих дней.",
-         en:"Hayot Ventures invests in early-stage technology startups. Submit your application — we'll respond within 5 business days.",
-         uz:"Hayot Ventures erta bosqichdagi texnologik startaplarga sarmoya kiritadi. Arizani to‘ldiring — 5 ish kunida javob beramiz."},
-  s1n:{ru:"Pre-Seed / Seed",en:"Pre-Seed / Seed",uz:"Pre-Seed / Seed"}, s1l:{ru:"стадии",en:"stages",uz:"bosqichlar"},
+  pill:{ru:"Сейчас принимаем заявки",en:"Now accepting applications",uz:"Hozir arizalar qabul qilinmoqda"},
+  hero1:{ru:"Мы инвестируем",en:"We invest in",uz:"Biz kelajakni"},
+  hero2:{ru:"в идеи",en:"ideas",uz:"o‘zgartiradigan"},
+  hero3:{ru:"которые меняют будущее",en:"that shape the future",uz:"g‘oyalarga sarmoya kiritamiz"},
+  heroP:{ru:"За каждым большим продуктом стоит смелая идея. Если у вас есть такая — расскажите нам. Hayot Ventures даёт капитал, экспертизу и сеть, чтобы превратить идею в компанию.",
+         en:"Behind every great product is a bold idea. If you have one — tell us. Hayot Ventures provides capital, expertise and the network to turn an idea into a company.",
+         uz:"Har bir buyuk mahsulot ortida jasur g‘oya turadi. Agar sizda shunday g‘oya bo‘lsa — bizga ayting. Hayot Ventures g‘oyani kompaniyaga aylantirish uchun kapital, tajriba va tarmoq beradi."},
+  chartT:{ru:"Путь основателя",en:"Founder's journey",uz:"Asoschi yo‘li"},
+  chartV:{ru:"Идея → Компания",en:"Idea → Company",uz:"G‘oya → Kompaniya"},
+  s1n:{ru:"Pre-Seed",en:"Pre-Seed",uz:"Pre-Seed"}, s1l:{ru:"стадия",en:"stage",uz:"bosqich"},
   s2n:{ru:"$10–50K",en:"$10–50K",uz:"$10–50K"}, s2l:{ru:"первый чек",en:"first check",uz:"birinchi chek"},
   s3n:{ru:"5 дней",en:"5 days",uz:"5 kun"}, s3l:{ru:"на ответ",en:"to respond",uz:"javobga"},
   start:{ru:"Подать заявку →",en:"Apply now →",uz:"Ariza topshirish →"},
@@ -169,15 +215,15 @@ const L = {
   pick:{ru:"Выберите вариант",en:"Pick an option",uz:"Variantni tanlang"},
   reviewTitle:{ru:"Проверьте заявку",en:"Review application",uz:"Arizani tekshiring"},
   done_h:{ru:"Заявка отправлена!",en:"Application submitted!",uz:"Ariza yuborildi!"},
-  done_p:{ru:"Спасибо! Наша команда рассмотрит проект в течение 5 рабочих дней. Номер заявки и проверка статуса придут в чат с ботом.",
-          en:"Thank you! Our team will review the project within 5 business days. Your application ID and status check will arrive in the bot chat.",
-          uz:"Rahmat! Jamoamiz loyihani 5 ish kunida ko‘rib chiqadi. Ariza raqami va holatni tekshirish bot chatiga keladi."},
+  done_p:{ru:"Спасибо за доверие. Мы рассмотрим вашу идею в течение 5 рабочих дней. Номер заявки и проверка статуса придут в чат с ботом.",
+          en:"Thank you for your trust. We'll review your idea within 5 business days. Your application ID and status check will arrive in the bot chat.",
+          uz:"Ishonchingiz uchun rahmat. G‘oyangizni 5 ish kunida ko‘rib chiqamiz. Ariza raqami va holat tekshiruvi bot chatiga keladi."},
   q:{
     name:{ru:"Как вас зовут?",en:"Founder name",uz:"Asoschi ismi"},
-    startup:{ru:"Название стартапа",en:"Startup name",uz:"Startap nomi"},
+    startup:{ru:"Название проекта",en:"Project name",uz:"Loyiha nomi"},
     sector:{ru:"Индустрия",en:"Industry",uz:"Industriya"},
     stage:{ru:"Стадия проекта",en:"Project stage",uz:"Loyiha bosqichi"},
-    desc:{ru:"Описание продукта",en:"Product description",uz:"Mahsulot tavsifi"},
+    desc:{ru:"Расскажите об идее",en:"Tell us about the idea",uz:"G‘oya haqida ayting"},
     traction:{ru:"Какие есть результаты?",en:"What traction do you have?",uz:"Qanday natijalar bor?"},
     country:{ru:"Основной рынок",en:"Main market",uz:"Asosiy bozor"},
     team:{ru:"Размер команды",en:"Team size",uz:"Jamoa hajmi"},
@@ -187,21 +233,21 @@ const L = {
   },
   hint:{
     name:{ru:"Имя и фамилия основателя",en:"Founder's full name",uz:"Asoschi ism-familiyasi"},
-    startup:{ru:"Как называется ваш продукт",en:"Name of your product",uz:"Mahsulotingiz nomi"},
-    sector:{ru:"К чему ближе всего ваш продукт",en:"Closest match for your product",uz:"Mahsulotingizga eng mos soha"},
+    startup:{ru:"Как называется ваш проект",en:"Name of your project",uz:"Loyihangiz nomi"},
+    sector:{ru:"К чему ближе всего ваша идея",en:"Closest match for your idea",uz:"G‘oyangizga eng mos soha"},
     stage:{ru:"На какой стадии проект сейчас",en:"Current stage of the project",uz:"Loyihaning hozirgi bosqichi"},
     desc:{ru:"2–4 предложения: какую проблему решаете и как",en:"2–4 sentences: the problem and your solution",uz:"2–4 gap: muammo va yechimingiz"},
-    traction:{ru:"Пользователи, выручка, рост. Если нет — «нет»",en:"Users, revenue, growth. If none — “none”",uz:"Foydalanuvchi, daromad, o‘sish. Bo‘lmasa — «yo‘q»"},
-    country:{ru:"Где работает проект",en:"Where the project operates",uz:"Loyiha qayerda ishlaydi"},
+    traction:{ru:"Пользователи, выручка, рост. Если пока нет — «нет»",en:"Users, revenue, growth. If none yet — “none”",uz:"Foydalanuvchi, daromad, o‘sish. Hali bo‘lmasa — «yo‘q»"},
+    country:{ru:"Где будет работать проект",en:"Where the project will operate",uz:"Loyiha qayerda ishlaydi"},
     team:{ru:"Сколько человек в команде",en:"People on the team",uz:"Jamoadagi odamlar soni"},
     amount:{ru:"В USD. Наш чек: $10 000 – $50 000",en:"In USD. Our check: $10,000 – $50,000",uz:"USD da. Bizning chek: $10 000 – $50 000"},
     contact:{ru:"Для обратной связи",en:"For us to contact you",uz:"Siz bilan bog‘lanish uchun"},
-    deck:{ru:"Google Drive / ссылка. Можно пропустить и прислать файл боту",en:"Google Drive / link. Optional — you can send the file to the bot",uz:"Google Drive / havola. Ixtiyoriy — faylni botga yuborsangiz bo‘ladi"}
+    deck:{ru:"Google Drive / ссылка. Можно пропустить и прислать файл боту",en:"Google Drive / link. Optional — send the file to the bot",uz:"Google Drive / havola. Ixtiyoriy — faylni botga yuboring"}
   },
   rev:{
-    name:{ru:"Основатель",en:"Founder",uz:"Asoschi"}, startup:{ru:"Стартап",en:"Startup",uz:"Startap"},
+    name:{ru:"Основатель",en:"Founder",uz:"Asoschi"}, startup:{ru:"Проект",en:"Project",uz:"Loyiha"},
     sector:{ru:"Индустрия",en:"Industry",uz:"Industriya"}, stage:{ru:"Стадия",en:"Stage",uz:"Bosqich"},
-    desc:{ru:"Описание",en:"Summary",uz:"Tavsif"}, traction:{ru:"Результаты",en:"Traction",uz:"Natijalar"},
+    desc:{ru:"Идея",en:"Idea",uz:"G‘oya"}, traction:{ru:"Результаты",en:"Traction",uz:"Natijalar"},
     country:{ru:"Рынок",en:"Market",uz:"Bozor"}, team:{ru:"Команда",en:"Team",uz:"Jamoa"},
     amount:{ru:"Запрос",en:"Ask",uz:"So‘rov"}, contact:{ru:"Контакт",en:"Contact",uz:"Aloqa"},
     deck:{ru:"Презентация",en:"Deck",uz:"Taqdimot"}
@@ -213,7 +259,7 @@ if(!["ru","en","uz"].includes(lang)) lang = "ru";
 
 const FIELDS = ["name","startup","sector","stage","desc","traction","country","team","amount","contact","deck"];
 const data = {};
-let screen = "intro";   // "intro" | 0..10 | "review" | "done"
+let screen = "intro";
 
 function tr(o){ return o[lang] || o.ru; }
 
@@ -231,15 +277,25 @@ function renderProgress(){
 function setLang(l){
   lang=l;
   document.querySelectorAll(".lang").forEach(e=>e.classList.toggle("active",e.dataset.lang===l));
-  document.querySelector('[data-i="brand_sub"]').textContent=tr(L.brand_sub);
   render();
 }
 
 function intro(){
   return `<div class="hero">
     <div class="pill"><span class="dot"></span>${tr(L.pill)}</div>
-    <h1>${tr(L.hero1)} <span class="accent">${tr(L.hero2)}</span></h1>
+    <h1>${tr(L.hero1)} <span class="em">${tr(L.hero2)}</span>, ${tr(L.hero3)}</h1>
     <p>${tr(L.heroP)}</p>
+    <div class="chart">
+      <div class="ct"><b>${tr(L.chartT)}</b><span>${tr(L.chartV)} ↗</span></div>
+      <svg viewBox="0 0 320 110" width="100%" height="96" preserveAspectRatio="none" aria-hidden="true">
+        <rect class="grow-bar" x="22"  y="78" width="20" height="26" rx="3" style="animation-delay:.2s"/>
+        <rect class="grow-bar" x="92"  y="62" width="20" height="42" rx="3" style="animation-delay:.45s"/>
+        <rect class="grow-bar" x="162" y="44" width="20" height="60" rx="3" style="animation-delay:.7s"/>
+        <rect class="grow-bar" x="232" y="20" width="20" height="84" rx="3" style="animation-delay:.95s"/>
+        <polyline class="grow-line" points="14,90 84,72 154,52 224,30 300,10"/>
+        <circle class="grow-dot" cx="300" cy="10" r="6"/>
+      </svg>
+    </div>
     <div class="stats">
       <div class="stat"><b>${tr(L.s1n)}</b><span>${tr(L.s1l)}</span></div>
       <div class="stat"><b>${tr(L.s2n)}</b><span>${tr(L.s2l)}</span></div>
@@ -254,8 +310,8 @@ function field(){
   let body="";
   if(f==="sector"||f==="stage"){
     const src=f==="sector"?SECTORS:STAGES;
-    body=`<div class="chips">`+Object.keys(src).map(k=>
-      `<div class="chip${data[f]===k?" sel":""}" data-k="${k}"><span class="dot"></span>${tr(src[k])}</div>`
+    body=`<div class="chips">`+Object.keys(src).map((k,i)=>
+      `<div class="chip${data[f]===k?" sel":""}" data-k="${k}" style="animation-delay:${i*0.04}s"><span class="dot"></span>${tr(src[k])}</div>`
     ).join("")+`</div>`;
   } else if(f==="desc"||f==="traction"){
     body=`<textarea id="inp">${data[f]||""}</textarea>`;
@@ -277,15 +333,15 @@ function field(){
 }
 
 function review(){
-  const rows=FIELDS.map(f=>{
+  const rows=FIELDS.map((f,i)=>{
     let v=data[f]||"—";
     if(f==="sector") v=data[f]?tr(SECTORS[data[f]]):"—";
     if(f==="stage")  v=data[f]?tr(STAGES[data[f]]):"—";
-    return `<div class="rev-row"><span class="k">${tr(L.rev[f])}</span><span class="v">${v}</span></div>`;
+    return `<div class="rev-row" style="animation-delay:${i*0.03}s"><span class="k">${tr(L.rev[f])}</span><span class="v">${v}</span></div>`;
   }).join("");
   return `<div class="card">
     <div class="step-num">${tr(L.reviewTitle)}</div>
-    <div class="q">⬡ ${data.startup||""}</div>
+    <div class="q">${data.startup||""}</div>
     <div style="margin:12px 0 4px">${rows}</div>
     <div class="nav">
       <button class="btn btn-ghost" id="back">${tr(L.back)}</button>
@@ -296,12 +352,13 @@ function review(){
 
 function done(){
   return `<div class="card done-screen">
-    <svg class="big-hex" viewBox="0 0 100 100">
-      <polygon points="50,8 70,20 70,44 50,56 30,44 30,20" fill="#1F5B57"/>
-      <polygon points="92,50 92,74 72,86 52,74 52,50 72,38" fill="#E8835A"/>
-      <polygon points="50,92 30,80 30,56 50,44 70,56 70,80" fill="#2E6E6A"/>
-      <polygon points="8,50 8,26 28,14 48,26 48,50 28,62" fill="#5FA8A4"/>
-    </svg>
+    <div class="seal">
+      <svg viewBox="0 0 100 100">
+        <circle class="ring" cx="50" cy="50" r="45"/>
+        <circle class="prog" cx="50" cy="50" r="45" transform="rotate(-90 50 50)"/>
+        <polyline class="tick" points="32,52 44,64 68,38"/>
+      </svg>
+    </div>
     <h2>${tr(L.done_h)}</h2>
     <p>${tr(L.done_p)}</p>
   </div>`;
@@ -324,13 +381,13 @@ function validate(){
 
 function bind(){
   const go=document.getElementById("go");
-  if(go) go.addEventListener("click",()=>{ screen=0; render(); });
+  if(go) go.addEventListener("click",()=>{ haptic("light"); screen=0; render(); });
   if(typeof screen==="number"){
     const f=FIELDS[screen];
     const inp=document.getElementById("inp");
     if(inp){ inp.addEventListener("input",e=>data[f]=e.target.value); setTimeout(()=>inp.focus(),60); }
     document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
-      data[f]=c.dataset.k;
+      haptic("light"); data[f]=c.dataset.k;
       document.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
       c.classList.add("sel");
     }));
@@ -338,18 +395,26 @@ function bind(){
     if(back) back.addEventListener("click",()=>{ screen = screen===0 ? "intro" : screen-1; render(); });
     const next=document.getElementById("next");
     if(next) next.addEventListener("click",()=>{
-      if(!validate()) return;
+      if(!validate()){ haptic("error"); return; }
+      haptic("light");
       screen = screen<FIELDS.length-1 ? screen+1 : "review";
       render();
     });
   }
-  const back2=document.querySelectorAll(".card .btn-ghost#back");
   const send=document.getElementById("send");
   if(send) send.addEventListener("click",submit);
   if(screen==="review"){
     const b=document.getElementById("back");
     if(b) b.addEventListener("click",()=>{ screen=FIELDS.length-1; render(); });
   }
+}
+
+function haptic(type){
+  try{
+    if(!tg||!tg.HapticFeedback) return;
+    if(type==="error") tg.HapticFeedback.notificationOccurred("error");
+    else tg.HapticFeedback.impactOccurred("light");
+  }catch(e){}
 }
 
 function render(){
@@ -370,7 +435,7 @@ function submit(){
     try{ tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success"); }catch(e){}
     tg.sendData(JSON.stringify(payload));
     screen="done"; render();
-    setTimeout(()=>tg.close(), 2000);
+    setTimeout(()=>tg.close(), 2200);
   } else {
     screen="done"; render();
   }
