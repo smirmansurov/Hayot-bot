@@ -3,109 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Hayot Ventures — Заявка</title>
+<title>Hayot Ventures — Apply</title>
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 <style>
   :root{
-    --teal-deep:#1F5B57; --teal:#2E6E6A; --teal-slate:#44827F; --teal-light:#5FA8A4;
-    --coral:#E8835A; --ink:#1A1D1F; --bg:#F1F6F5; --card:#FFFFFF;
-    --muted:#6B7C7A; --line:#E2ECEA; --ok:#2E9E6B; --shadow:0 8px 30px rgba(31,91,87,.10);
+    --bg:#0A1413; --bg2:#0E1C1A; --card:#13211F; --card2:#172927;
+    --line:rgba(95,168,164,.16); --line2:rgba(95,168,164,.30);
+    --teal:#2E6E6A; --teal-light:#5FA8A4; --teal-deep:#1F5B57;
+    --coral:#E8835A; --coral-soft:#F0997B;
+    --txt:#EAF3F1; --muted:#8AA39F; --dim:#5F756F;
     --radius:18px;
   }
-  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-  html,body{margin:0;padding:0;}
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;}
+  html,body{min-height:100%;}
   body{
-    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,Inter,sans-serif;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,Roboto,sans-serif;
+    color:var(--txt);
     background:
-      radial-gradient(1200px 500px at 50% -10%, rgba(95,168,164,.18), transparent 60%),
-      var(--bg);
-    color:var(--ink); min-height:100vh; -webkit-font-smoothing:antialiased;
-    padding:0 0 40px;
+      radial-gradient(900px 480px at 80% -8%, rgba(232,131,90,.16), transparent 60%),
+      radial-gradient(1100px 600px at 12% 0%, rgba(95,168,164,.20), transparent 55%),
+      linear-gradient(180deg,var(--bg2),var(--bg) 40%);
+    background-attachment:fixed;
+    min-height:100vh; -webkit-font-smoothing:antialiased; padding:0 0 40px;
   }
   .wrap{max-width:520px;margin:0 auto;padding:0 18px;}
 
-  /* ---------- header ---------- */
-  header{padding:18px 18px 8px;max-width:520px;margin:0 auto;display:flex;align-items:center;gap:12px;}
-  .logo{width:42px;height:42px;flex:none;}
-  .brand{display:flex;flex-direction:column;line-height:1.1;}
-  .brand b{font-size:18px;font-weight:800;letter-spacing:-.2px;}
-  .brand span{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;}
-  .langs{margin-left:auto;display:flex;gap:6px;}
-  .lang{font-size:12px;font-weight:700;color:var(--muted);background:#fff;border:1px solid var(--line);
-    border-radius:999px;padding:6px 10px;cursor:pointer;transition:.2s;}
-  .lang.active{color:#fff;background:var(--teal);border-color:var(--teal);}
+  header{max-width:520px;margin:0 auto;padding:16px 18px 6px;display:flex;align-items:center;gap:11px;}
+  .logo{width:40px;height:40px;flex:none;filter:drop-shadow(0 4px 12px rgba(95,168,164,.35));}
+  .brand b{font-size:17px;font-weight:700;letter-spacing:-.2px;display:block;}
+  .brand span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;}
+  .langs{margin-left:auto;display:flex;gap:5px;}
+  .lang{font-size:11px;font-weight:700;color:var(--muted);background:rgba(255,255,255,.04);
+    border:1px solid var(--line);border-radius:999px;padding:6px 10px;cursor:pointer;transition:.2s;}
+  .lang.active{color:#0A1413;background:var(--teal-light);border-color:var(--teal-light);}
 
-  /* ---------- progress hexagons ---------- */
-  .progress{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:14px 0 18px;}
-  .hex{width:14px;height:16px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
-    background:var(--line);transition:.3s;}
+  /* hero / intro */
+  .pill{display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;color:var(--teal-light);
+    background:rgba(95,168,164,.10);border:1px solid var(--line2);border-radius:999px;padding:7px 14px;margin:6px 0 18px;}
+  .pill .dot{width:8px;height:8px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 4px rgba(232,131,90,.2);animation:pulse 1.8s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+  .hero h1{font-size:32px;line-height:1.12;font-weight:800;letter-spacing:-.8px;margin-bottom:14px;}
+  .hero h1 .accent{background:linear-gradient(120deg,var(--teal-light),var(--coral-soft));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .hero p{color:var(--muted);font-size:15px;line-height:1.6;margin-bottom:22px;}
+  .stats{display:flex;gap:10px;margin-bottom:24px;}
+  .stat{flex:1;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 10px;text-align:center;}
+  .stat b{display:block;font-size:17px;font-weight:800;color:var(--teal-light);letter-spacing:-.3px;}
+  .stat span{font-size:10.5px;color:var(--muted);line-height:1.3;display:block;margin-top:3px;}
+
+  /* progress */
+  .progress{display:flex;gap:5px;justify-content:center;flex-wrap:wrap;margin:14px 0 18px;}
+  .hex{width:13px;height:15px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:rgba(255,255,255,.08);transition:.3s;}
   .hex.done{background:var(--teal-light);}
-  .hex.current{background:var(--coral);transform:scale(1.18);}
+  .hex.current{background:var(--coral);transform:scale(1.2);}
 
-  /* ---------- card ---------- */
-  .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);
-    padding:22px 20px;border:1px solid var(--line);animation:rise .35s ease;}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);
+    padding:22px 20px;animation:rise .35s ease;backdrop-filter:blur(8px);}
   @keyframes rise{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:none;}}
-  .step-num{font-size:12px;font-weight:700;color:var(--teal-light);letter-spacing:1px;text-transform:uppercase;}
-  .q{font-size:20px;font-weight:800;margin:6px 0 4px;letter-spacing:-.3px;line-height:1.25;}
-  .hint{font-size:13px;color:var(--muted);margin-bottom:16px;}
+  .step-num{font-size:11px;font-weight:700;color:var(--teal-light);letter-spacing:1.5px;text-transform:uppercase;}
+  .q{font-size:21px;font-weight:800;margin:7px 0 4px;letter-spacing:-.4px;line-height:1.22;}
+  .hint{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.45;}
 
-  input,textarea{width:100%;font-size:16px;font-family:inherit;color:var(--ink);background:#fff;
-    border:1.5px solid var(--line);border-radius:14px;padding:14px;outline:none;transition:.2s;}
-  input:focus,textarea:focus{border-color:var(--teal-light);box-shadow:0 0 0 4px rgba(95,168,164,.14);}
-  textarea{min-height:110px;resize:vertical;}
+  input,textarea{width:100%;font-size:16px;font-family:inherit;color:var(--txt);background:var(--card2);
+    border:1.5px solid var(--line);border-radius:13px;padding:14px;outline:none;transition:.2s;}
+  input::placeholder,textarea::placeholder{color:var(--dim);}
+  input:focus,textarea:focus{border-color:var(--teal-light);box-shadow:0 0 0 4px rgba(95,168,164,.12);}
+  textarea{min-height:108px;resize:vertical;}
 
-  .chips{display:flex;flex-direction:column;gap:10px;}
-  .chip{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:#fff;
-    border-radius:14px;padding:14px;font-size:15px;font-weight:600;cursor:pointer;transition:.18s;}
-  .chip .dot{width:18px;height:20px;flex:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
-    background:var(--line);transition:.18s;}
-  .chip.sel{border-color:var(--teal);background:#F2FAF8;}
+  .chips{display:flex;flex-direction:column;gap:9px;}
+  .chip{display:flex;align-items:center;gap:12px;border:1.5px solid var(--line);background:var(--card2);
+    border-radius:13px;padding:13px 14px;font-size:15px;font-weight:600;color:var(--txt);cursor:pointer;transition:.18s;}
+  .chip .dot{width:17px;height:19px;flex:none;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:rgba(255,255,255,.12);transition:.18s;}
+  .chip.sel{border-color:var(--teal-light);background:rgba(95,168,164,.12);}
   .chip.sel .dot{background:var(--coral);}
 
-  .err{color:var(--coral);font-size:13px;font-weight:600;margin-top:10px;min-height:16px;}
+  .err{color:var(--coral-soft);font-size:13px;font-weight:600;margin-top:10px;min-height:16px;}
 
-  /* ---------- nav ---------- */
   .nav{display:flex;gap:10px;margin-top:18px;}
-  .btn{flex:1;border:none;border-radius:14px;padding:15px;font-size:16px;font-weight:800;
-    cursor:pointer;font-family:inherit;transition:.2s;}
-  .btn-primary{background:var(--teal-deep);color:#fff;}
+  .btn{flex:1;border:none;border-radius:13px;padding:15px;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;transition:.2s;}
+  .btn-primary{background:linear-gradient(120deg,var(--teal-deep),var(--teal));color:#fff;box-shadow:0 8px 24px rgba(31,91,87,.4);}
   .btn-primary:active{transform:scale(.98);}
-  .btn-ghost{flex:none;width:54px;background:#fff;color:var(--teal);border:1.5px solid var(--line);}
-  .btn-coral{background:var(--coral);color:#fff;}
+  .btn-coral{background:linear-gradient(120deg,var(--coral),var(--coral-soft));color:#3A1206;box-shadow:0 8px 24px rgba(232,131,90,.35);}
+  .btn-ghost{flex:none;width:54px;background:var(--card2);color:var(--teal-light);border:1.5px solid var(--line);}
+  .btn-block{width:100%;}
 
-  /* ---------- review ---------- */
   .rev-row{display:flex;justify-content:space-between;gap:14px;padding:11px 0;border-bottom:1px solid var(--line);}
   .rev-row:last-child{border-bottom:none;}
   .rev-row .k{color:var(--muted);font-size:13px;font-weight:600;flex:none;}
   .rev-row .v{font-size:14px;font-weight:600;text-align:right;word-break:break-word;}
 
-  /* ---------- success ---------- */
-  .done-screen{text-align:center;padding:34px 22px;}
-  .done-screen .big-hex{width:84px;height:84px;margin:0 auto 18px;}
-  .done-screen h2{font-size:24px;font-weight:800;margin:0 0 8px;}
-  .done-screen p{color:var(--muted);font-size:15px;line-height:1.5;}
-  .appid{display:inline-block;margin-top:14px;background:#F2FAF8;border:1px dashed var(--teal-light);
-    color:var(--teal-deep);font-weight:800;padding:10px 16px;border-radius:12px;letter-spacing:1px;}
+  .done-screen{text-align:center;padding:30px 22px;}
+  .done-screen .big-hex{width:80px;height:80px;margin:0 auto 18px;filter:drop-shadow(0 8px 20px rgba(95,168,164,.4));animation:pop .5s ease;}
+  @keyframes pop{0%{transform:scale(.6);opacity:0}60%{transform:scale(1.08)}100%{transform:scale(1);opacity:1}}
+  .done-screen h2{font-size:25px;font-weight:800;margin-bottom:10px;letter-spacing:-.4px;}
+  .done-screen p{color:var(--muted);font-size:15px;line-height:1.55;}
   .hidden{display:none;}
-  .footer{text-align:center;color:var(--muted);font-size:11px;margin-top:18px;letter-spacing:.3px;}
+  .footer{text-align:center;color:var(--dim);font-size:10.5px;margin-top:20px;letter-spacing:.4px;}
 </style>
 </head>
 <body>
 
 <header>
-  <!-- Гексагон-вертушка Hayot Ventures -->
   <svg class="logo" viewBox="0 0 100 100" aria-hidden="true">
-    <g>
-      <polygon points="50,8 70,20 70,44 50,56 30,44 30,20" fill="#1F5B57"/>
-      <polygon points="92,50 92,74 72,86 52,74 52,50 72,38" fill="#E8835A"/>
-      <polygon points="50,92 30,80 30,56 50,44 70,56 70,80" fill="#2E6E6A"/>
-      <polygon points="8,50 8,26 28,14 48,26 48,50 28,62" fill="#5FA8A4"/>
-    </g>
+    <polygon points="50,8 70,20 70,44 50,56 30,44 30,20" fill="#1F5B57"/>
+    <polygon points="92,50 92,74 72,86 52,74 52,50 72,38" fill="#E8835A"/>
+    <polygon points="50,92 30,80 30,56 50,44 70,56 70,80" fill="#2E6E6A"/>
+    <polygon points="8,50 8,26 28,14 48,26 48,50 28,62" fill="#5FA8A4"/>
   </svg>
   <div class="brand">
     <b>Hayot Ventures</b>
-    <span data-i="brand_sub">Pre-Seed фонд</span>
+    <span data-i="brand_sub">Венчурный фонд</span>
   </div>
   <div class="langs">
     <div class="lang" data-lang="ru">RU</div>
@@ -115,33 +121,45 @@
 </header>
 
 <div class="wrap">
-  <div class="progress" id="progress"></div>
+  <div class="progress hidden" id="progress"></div>
   <div id="screen"></div>
-  <div class="footer">⬡ Hayot Ventures · Invest in products, not ideas</div>
+  <div class="footer">⬡ Hayot Ventures · Central Asia</div>
 </div>
 
 <script>
 const tg = window.Telegram ? window.Telegram.WebApp : null;
-if (tg){ tg.ready(); tg.expand(); }
+if (tg){ tg.ready(); tg.expand(); try{tg.setHeaderColor("#0A1413"); tg.setBackgroundColor("#0A1413");}catch(e){} }
 
-/* ---------------- словари ---------------- */
+/* секторы и стадии — как на сайте hayot.vc */
 const SECTORS = {
-  fintech:{ru:"FinTech и платежи",en:"FinTech & Payments",uz:"FinTech va to‘lovlar"},
-  ecom:{ru:"E-commerce / маркетплейсы / МСБ",en:"E-commerce / SME tools",uz:"E-commerce / KО‘B"},
-  edu:{ru:"EdTech и HR-Tech",en:"EdTech & HR-Tech",uz:"EdTech va HR-Tech"},
-  health:{ru:"HealthTech и InsurTech",en:"HealthTech & InsurTech",uz:"HealthTech va InsurTech"},
-  ai:{ru:"AI/ML и B2B SaaS",en:"AI/ML & B2B SaaS",uz:"AI/ML va B2B SaaS"},
-  agri:{ru:"AgriTech / логистика",en:"AgriTech / Logistics",uz:"AgriTech / logistika"},
-  other:{ru:"Другое технологическое",en:"Other technology",uz:"Boshqa texnologiya"}
+  fintech:{ru:"Финтех",en:"Fintech",uz:"Fintech"},
+  ai:{ru:"AI / ML",en:"AI / ML",uz:"AI / ML"},
+  saas:{ru:"SaaS",en:"SaaS",uz:"SaaS"},
+  marketplace:{ru:"Маркетплейс",en:"Marketplace",uz:"Marketpleys"},
+  web3:{ru:"Web3 / Блокчейн",en:"Web3 / Blockchain",uz:"Web3 / Blokcheyn"},
+  enterprise:{ru:"Enterprise Tech",en:"Enterprise Tech",uz:"Enterprise Tech"},
+  health:{ru:"HealthTech",en:"HealthTech",uz:"HealthTech"},
+  edu:{ru:"EdTech",en:"EdTech",uz:"EdTech"},
+  other:{ru:"Другое",en:"Other",uz:"Boshqa"}
 };
 const STAGES = {
-  idea:{ru:"Идея / прототип",en:"Idea / prototype",uz:"G‘oya / prototip"},
-  mvp:{ru:"Работающий MVP",en:"Working MVP",uz:"Ishlaydigan MVP"},
-  traction:{ru:"MVP + первые клиенты",en:"MVP + early traction",uz:"MVP + birinchi mijozlar"},
-  revenue:{ru:"Есть выручка",en:"Has revenue",uz:"Daromad bor"}
+  idea:{ru:"Идея",en:"Idea",uz:"G‘oya"},
+  mvp:{ru:"MVP",en:"MVP",uz:"MVP"},
+  preseed:{ru:"Pre-Seed",en:"Pre-Seed",uz:"Pre-Seed"},
+  seed:{ru:"Seed",en:"Seed",uz:"Seed"}
 };
 const L = {
-  brand_sub:{ru:"Pre-Seed фонд",en:"Pre-Seed fund",uz:"Pre-Seed fond"},
+  brand_sub:{ru:"Венчурный фонд",en:"Venture fund",uz:"Venchur fondi"},
+  pill:{ru:"Сейчас принимаем стартапы",en:"Now accepting startups",uz:"Hozir startaplar qabul qilinmoqda"},
+  hero1:{ru:"Инвестируем в будущее",en:"Investing in the future",uz:"Markaziy Osiyo"},
+  hero2:{ru:"Центральной Азии",en:"of Central Asia",uz:"kelajagiga sarmoya"},
+  heroP:{ru:"Hayot Ventures инвестирует в технологические стартапы ранней стадии. Заполните заявку — мы ответим в течение 5 рабочих дней.",
+         en:"Hayot Ventures invests in early-stage technology startups. Submit your application — we'll respond within 5 business days.",
+         uz:"Hayot Ventures erta bosqichdagi texnologik startaplarga sarmoya kiritadi. Arizani to‘ldiring — 5 ish kunida javob beramiz."},
+  s1n:{ru:"Pre-Seed / Seed",en:"Pre-Seed / Seed",uz:"Pre-Seed / Seed"}, s1l:{ru:"стадии",en:"stages",uz:"bosqichlar"},
+  s2n:{ru:"$10–50K",en:"$10–50K",uz:"$10–50K"}, s2l:{ru:"первый чек",en:"first check",uz:"birinchi chek"},
+  s3n:{ru:"5 дней",en:"5 days",uz:"5 kun"}, s3l:{ru:"на ответ",en:"to respond",uz:"javobga"},
+  start:{ru:"Подать заявку →",en:"Apply now →",uz:"Ariza topshirish →"},
   next:{ru:"Далее →",en:"Next →",uz:"Keyingi →"},
   back:{ru:"←",en:"←",uz:"←"},
   submit:{ru:"Отправить заявку",en:"Submit application",uz:"Arizani yuborish"},
@@ -151,62 +169,61 @@ const L = {
   pick:{ru:"Выберите вариант",en:"Pick an option",uz:"Variantni tanlang"},
   reviewTitle:{ru:"Проверьте заявку",en:"Review application",uz:"Arizani tekshiring"},
   done_h:{ru:"Заявка отправлена!",en:"Application submitted!",uz:"Ariza yuborildi!"},
-  done_p:{ru:"Наша команда рассмотрит проект в течение нескольких рабочих дней и свяжется с вами. Спасибо за доверие к Hayot Ventures!",
-          en:"Our team will review the project within a few business days and get back to you. Thank you for trusting Hayot Ventures!",
-          uz:"Jamoamiz loyihani bir necha ish kunida ko‘rib chiqadi va siz bilan bog‘lanadi. Hayot Ventures’ga ishonganingiz uchun rahmat!"},
+  done_p:{ru:"Спасибо! Наша команда рассмотрит проект в течение 5 рабочих дней. Номер заявки и проверка статуса придут в чат с ботом.",
+          en:"Thank you! Our team will review the project within 5 business days. Your application ID and status check will arrive in the bot chat.",
+          uz:"Rahmat! Jamoamiz loyihani 5 ish kunida ko‘rib chiqadi. Ariza raqami va holatni tekshirish bot chatiga keladi."},
   q:{
-    name:{ru:"Как вас зовут?",en:"What's your name?",uz:"Ismingiz?"},
+    name:{ru:"Как вас зовут?",en:"Founder name",uz:"Asoschi ismi"},
     startup:{ru:"Название стартапа",en:"Startup name",uz:"Startap nomi"},
-    sector:{ru:"Сектор продукта",en:"Product sector",uz:"Mahsulot sohasi"},
+    sector:{ru:"Индустрия",en:"Industry",uz:"Industriya"},
     stage:{ru:"Стадия проекта",en:"Project stage",uz:"Loyiha bosqichi"},
-    desc:{ru:"Проблема и решение",en:"Problem & solution",uz:"Muammo va yechim"},
+    desc:{ru:"Описание продукта",en:"Product description",uz:"Mahsulot tavsifi"},
     traction:{ru:"Какие есть результаты?",en:"What traction do you have?",uz:"Qanday natijalar bor?"},
-    country:{ru:"Основной рынок (страна)",en:"Main market (country)",uz:"Asosiy bozor (mamlakat)"},
+    country:{ru:"Основной рынок",en:"Main market",uz:"Asosiy bozor"},
     team:{ru:"Размер команды",en:"Team size",uz:"Jamoa hajmi"},
-    amount:{ru:"Запрашиваемая сумма",en:"Requested amount",uz:"So‘ralayotgan summa"},
-    contact:{ru:"Контакт для связи",en:"Contact details",uz:"Bog‘lanish ma’lumoti"},
-    deck:{ru:"Ссылка на презентацию",en:"Pitch deck link",uz:"Taqdimot havolasi"}
+    amount:{ru:"Запрашиваемая сумма",en:"Investment amount",uz:"So‘ralayotgan summa"},
+    contact:{ru:"Email или телефон",en:"Email or phone",uz:"Email yoki telefon"},
+    deck:{ru:"Pitch deck (ссылка)",en:"Pitch deck (link)",uz:"Pitch deck (havola)"}
   },
   hint:{
     name:{ru:"Имя и фамилия основателя",en:"Founder's full name",uz:"Asoschi ism-familiyasi"},
     startup:{ru:"Как называется ваш продукт",en:"Name of your product",uz:"Mahsulotingiz nomi"},
     sector:{ru:"К чему ближе всего ваш продукт",en:"Closest match for your product",uz:"Mahsulotingizga eng mos soha"},
-    stage:{ru:"Мы инвестируем в продукты, а не идеи",en:"We invest in products, not ideas",uz:"Biz g‘oyaga emas, mahsulotga sarmoya kiritamiz"},
+    stage:{ru:"На какой стадии проект сейчас",en:"Current stage of the project",uz:"Loyihaning hozirgi bosqichi"},
     desc:{ru:"2–4 предложения: какую проблему решаете и как",en:"2–4 sentences: the problem and your solution",uz:"2–4 gap: muammo va yechimingiz"},
-    traction:{ru:"Пользователи, выручка, контракты, рост. Если нет — напишите «нет»",en:"Users, revenue, contracts, growth. If none — write “none”",uz:"Foydalanuvchi, daromad, shartnoma, o‘sish. Bo‘lmasa — «yo‘q»"},
+    traction:{ru:"Пользователи, выручка, рост. Если нет — «нет»",en:"Users, revenue, growth. If none — “none”",uz:"Foydalanuvchi, daromad, o‘sish. Bo‘lmasa — «yo‘q»"},
     country:{ru:"Где работает проект",en:"Where the project operates",uz:"Loyiha qayerda ishlaydi"},
-    team:{ru:"Сколько человек: фаундеры и сотрудники",en:"Founders + staff",uz:"Asoschilar + xodimlar"},
+    team:{ru:"Сколько человек в команде",en:"People on the team",uz:"Jamoadagi odamlar soni"},
     amount:{ru:"В USD. Наш чек: $10 000 – $50 000",en:"In USD. Our check: $10,000 – $50,000",uz:"USD da. Bizning chek: $10 000 – $50 000"},
-    contact:{ru:"Телефон или email",en:"Phone or email",uz:"Telefon yoki email"},
-    deck:{ru:"Google Drive / ссылка. Можно пропустить — приложите файл боту позже",en:"Google Drive / link. Optional — you can send the file to the bot later",uz:"Google Drive / havola. Ixtiyoriy — faylni keyin botga yuborishingiz mumkin"}
+    contact:{ru:"Для обратной связи",en:"For us to contact you",uz:"Siz bilan bog‘lanish uchun"},
+    deck:{ru:"Google Drive / ссылка. Можно пропустить и прислать файл боту",en:"Google Drive / link. Optional — you can send the file to the bot",uz:"Google Drive / havola. Ixtiyoriy — faylni botga yuborsangiz bo‘ladi"}
   },
   rev:{
     name:{ru:"Основатель",en:"Founder",uz:"Asoschi"}, startup:{ru:"Стартап",en:"Startup",uz:"Startap"},
-    sector:{ru:"Сектор",en:"Sector",uz:"Soha"}, stage:{ru:"Стадия",en:"Stage",uz:"Bosqich"},
+    sector:{ru:"Индустрия",en:"Industry",uz:"Industriya"}, stage:{ru:"Стадия",en:"Stage",uz:"Bosqich"},
     desc:{ru:"Описание",en:"Summary",uz:"Tavsif"}, traction:{ru:"Результаты",en:"Traction",uz:"Natijalar"},
-    country:{ru:"Страна",en:"Country",uz:"Mamlakat"}, team:{ru:"Команда",en:"Team",uz:"Jamoa"},
+    country:{ru:"Рынок",en:"Market",uz:"Bozor"}, team:{ru:"Команда",en:"Team",uz:"Jamoa"},
     amount:{ru:"Запрос",en:"Ask",uz:"So‘rov"}, contact:{ru:"Контакт",en:"Contact",uz:"Aloqa"},
     deck:{ru:"Презентация",en:"Deck",uz:"Taqdimot"}
   }
 };
 
-/* ---------------- состояние ---------------- */
 let lang = (tg && tg.initDataUnsafe && tg.initDataUnsafe.user && tg.initDataUnsafe.user.language_code) || "ru";
 if(!["ru","en","uz"].includes(lang)) lang = "ru";
 
 const FIELDS = ["name","startup","sector","stage","desc","traction","country","team","amount","contact","deck"];
 const data = {};
-let step = 0;
+let screen = "intro";   // "intro" | 0..10 | "review" | "done"
 
-/* ---------------- рендер ---------------- */
 function tr(o){ return o[lang] || o.ru; }
 
 function renderProgress(){
-  const p = document.getElementById("progress");
-  p.innerHTML = "";
+  const p=document.getElementById("progress");
+  if(typeof screen!=="number"){ p.classList.add("hidden"); return; }
+  p.classList.remove("hidden"); p.innerHTML="";
   FIELDS.forEach((_,i)=>{
     const h=document.createElement("div");
-    h.className="hex"+(i<step?" done":"")+(i===step?" current":"");
+    h.className="hex"+(i<screen?" done":"")+(i===screen?" current":"");
     p.appendChild(h);
   });
 }
@@ -218,9 +235,22 @@ function setLang(l){
   render();
 }
 
+function intro(){
+  return `<div class="hero">
+    <div class="pill"><span class="dot"></span>${tr(L.pill)}</div>
+    <h1>${tr(L.hero1)} <span class="accent">${tr(L.hero2)}</span></h1>
+    <p>${tr(L.heroP)}</p>
+    <div class="stats">
+      <div class="stat"><b>${tr(L.s1n)}</b><span>${tr(L.s1l)}</span></div>
+      <div class="stat"><b>${tr(L.s2n)}</b><span>${tr(L.s2l)}</span></div>
+      <div class="stat"><b>${tr(L.s3n)}</b><span>${tr(L.s3l)}</span></div>
+    </div>
+    <button class="btn btn-coral btn-block" id="go">${tr(L.start)}</button>
+  </div>`;
+}
+
 function field(){
-  const f=FIELDS[step];
-  const num=step+1, total=FIELDS.length;
+  const f=FIELDS[screen], num=screen+1, total=FIELDS.length;
   let body="";
   if(f==="sector"||f==="stage"){
     const src=f==="sector"?SECTORS:STAGES;
@@ -228,10 +258,10 @@ function field(){
       `<div class="chip${data[f]===k?" sel":""}" data-k="${k}"><span class="dot"></span>${tr(src[k])}</div>`
     ).join("")+`</div>`;
   } else if(f==="desc"||f==="traction"){
-    body=`<textarea id="inp" placeholder="">${data[f]||""}</textarea>`;
+    body=`<textarea id="inp">${data[f]||""}</textarea>`;
   } else {
-    const type=f==="amount"||f==="team"?'inputmode="numeric"':(f==="contact"?'inputmode="text"':'');
-    body=`<input id="inp" ${type} value="${(data[f]||"").replace(/"/g,'&quot;')}" placeholder="">`;
+    const im=(f==="amount"||f==="team")?'inputmode="numeric"':'';
+    body=`<input id="inp" ${im} value="${(data[f]||"").replace(/"/g,'&quot;')}">`;
   }
   return `<div class="card">
     <div class="step-num">${num} / ${total}</div>
@@ -240,8 +270,8 @@ function field(){
     ${body}
     <div class="err" id="err"></div>
     <div class="nav">
-      ${step>0?`<button class="btn btn-ghost" id="back">${tr(L.back)}</button>`:""}
-      <button class="btn btn-primary" id="next">${step===total-1?tr(L.submit):tr(L.next)}</button>
+      <button class="btn btn-ghost" id="back">${tr(L.back)}</button>
+      <button class="btn btn-primary" id="next">${screen===total-1?tr(L.submit):tr(L.next)}</button>
     </div>
   </div>`;
 }
@@ -256,7 +286,7 @@ function review(){
   return `<div class="card">
     <div class="step-num">${tr(L.reviewTitle)}</div>
     <div class="q">⬡ ${data.startup||""}</div>
-    <div style="margin:10px 0 4px">${rows}</div>
+    <div style="margin:12px 0 4px">${rows}</div>
     <div class="nav">
       <button class="btn btn-ghost" id="back">${tr(L.back)}</button>
       <button class="btn btn-coral" id="send">${tr(L.submit)}</button>
@@ -264,7 +294,7 @@ function review(){
   </div>`;
 }
 
-function success(){
+function done(){
   return `<div class="card done-screen">
     <svg class="big-hex" viewBox="0 0 100 100">
       <polygon points="50,8 70,20 70,44 50,56 30,44 30,20" fill="#1F5B57"/>
@@ -281,11 +311,11 @@ const EMAIL=/[^@\s]+@[^@\s]+\.[^@\s]+/;
 const PHONE=/[\+\d][\d\-\(\)\s]{6,}/;
 
 function validate(){
-  const f=FIELDS[step];
-  if(f==="deck") return true; // optional
+  const f=FIELDS[screen];
+  if(f==="deck") return true;
   const v=(data[f]||"").trim();
   const err=document.getElementById("err");
-  if((f==="sector"||f==="stage")){ if(!v){err.textContent=tr(L.pick);return false;} return true; }
+  if(f==="sector"||f==="stage"){ if(!v){err.textContent=tr(L.pick);return false;} return true; }
   if(!v){ err.textContent=tr(L.required); return false; }
   if(f==="desc" && v.length<15){ err.textContent=tr(L.tooShort); return false; }
   if(f==="contact" && !(EMAIL.test(v)||PHONE.test(v))){ err.textContent=tr(L.badContact); return false; }
@@ -293,33 +323,42 @@ function validate(){
 }
 
 function bind(){
-  const f=FIELDS[step];
-  const inp=document.getElementById("inp");
-  if(inp){ inp.addEventListener("input",e=>data[f]=e.target.value); setTimeout(()=>inp.focus(),60); }
-  document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
-    data[f]=c.dataset.k;
-    document.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
-    c.classList.add("sel");
-  }));
-  const back=document.getElementById("back");
-  if(back) back.addEventListener("click",()=>{step--;render();});
-  const next=document.getElementById("next");
-  if(next) next.addEventListener("click",()=>{
-    if(!validate()) return;
-    if(step<FIELDS.length-1){ step++; render(); }
-    else { step=FIELDS.length; render(); } // review
-  });
+  const go=document.getElementById("go");
+  if(go) go.addEventListener("click",()=>{ screen=0; render(); });
+  if(typeof screen==="number"){
+    const f=FIELDS[screen];
+    const inp=document.getElementById("inp");
+    if(inp){ inp.addEventListener("input",e=>data[f]=e.target.value); setTimeout(()=>inp.focus(),60); }
+    document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+      data[f]=c.dataset.k;
+      document.querySelectorAll(".chip").forEach(x=>x.classList.remove("sel"));
+      c.classList.add("sel");
+    }));
+    const back=document.getElementById("back");
+    if(back) back.addEventListener("click",()=>{ screen = screen===0 ? "intro" : screen-1; render(); });
+    const next=document.getElementById("next");
+    if(next) next.addEventListener("click",()=>{
+      if(!validate()) return;
+      screen = screen<FIELDS.length-1 ? screen+1 : "review";
+      render();
+    });
+  }
+  const back2=document.querySelectorAll(".card .btn-ghost#back");
   const send=document.getElementById("send");
   if(send) send.addEventListener("click",submit);
+  if(screen==="review"){
+    const b=document.getElementById("back");
+    if(b) b.addEventListener("click",()=>{ screen=FIELDS.length-1; render(); });
+  }
 }
 
 function render(){
-  const total=FIELDS.length;
   renderProgress();
   const scr=document.getElementById("screen");
-  if(step<total) scr.innerHTML=field();
-  else if(step===total) scr.innerHTML=review();
-  else scr.innerHTML=success();
+  if(screen==="intro") scr.innerHTML=intro();
+  else if(typeof screen==="number") scr.innerHTML=field();
+  else if(screen==="review") scr.innerHTML=review();
+  else scr.innerHTML=done();
   bind();
   window.scrollTo(0,0);
 }
@@ -328,17 +367,15 @@ function submit(){
   const payload={lang};
   FIELDS.forEach(f=>payload[f]=(data[f]||"").trim());
   if(tg){
-    tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success");
-    tg.sendData(JSON.stringify(payload));   // -> уходит боту
-    step=total_done(); render();
-    setTimeout(()=>tg.close(), 1800);
+    try{ tg.HapticFeedback && tg.HapticFeedback.notificationOccurred("success"); }catch(e){}
+    tg.sendData(JSON.stringify(payload));
+    screen="done"; render();
+    setTimeout(()=>tg.close(), 2000);
   } else {
-    step=total_done(); render(); // предпросмотр в обычном браузере
+    screen="done"; render();
   }
 }
-function total_done(){ return FIELDS.length+1; }
 
-/* init */
 document.querySelectorAll(".lang").forEach(e=>e.addEventListener("click",()=>setLang(e.dataset.lang)));
 setLang(lang);
 </script>
