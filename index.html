@@ -218,6 +218,7 @@ const L = {
   done_p:{ru:"Спасибо за доверие. Мы рассмотрим вашу идею в течение 5 рабочих дней. Номер заявки и проверка статуса придут в чат с ботом.",
           en:"Thank you for your trust. We'll review your idea within 5 business days. Your application ID and status check will arrive in the bot chat.",
           uz:"Ishonchingiz uchun rahmat. G‘oyangizni 5 ish kunida ko‘rib chiqamiz. Ariza raqami va holat tekshiruvi bot chatiga keladi."},
+  addhome:{ru:"📲 Добавить Hayot на экран",en:"📲 Add Hayot to home screen",uz:"📲 Hayot’ni ekranga qo‘shish"},
   q:{
     name:{ru:"Как вас зовут?",en:"Founder name",uz:"Asoschi ismi"},
     startup:{ru:"Название проекта",en:"Project name",uz:"Loyiha nomi"},
@@ -302,6 +303,7 @@ function intro(){
       <div class="stat"><b>${tr(L.s3n)}</b><span>${tr(L.s3l)}</span></div>
     </div>
     <button class="btn btn-coral btn-block" id="go">${tr(L.start)}</button>
+    <button class="btn btn-ghost btn-block" id="addhome" style="display:none;margin-top:10px;">${tr(L.addhome)}</button>
   </div>`;
 }
 
@@ -406,6 +408,16 @@ function bind(){
   if(screen==="review"){
     const b=document.getElementById("back");
     if(b) b.addEventListener("click",()=>{ screen=FIELDS.length-1; render(); });
+  }
+  // «Добавить на домашний экран» — только если Telegram поддерживает (Bot API 8.0+)
+  const ah=document.getElementById("addhome");
+  if(ah && tg && typeof tg.addToHomeScreen==="function"){
+    let ok=true;
+    try{ ok = !tg.isVersionAtLeast || tg.isVersionAtLeast("8.0"); }catch(e){}
+    if(ok){
+      ah.style.display="block";
+      ah.addEventListener("click",()=>{ try{ tg.addToHomeScreen(); }catch(e){} });
+    }
   }
 }
 
